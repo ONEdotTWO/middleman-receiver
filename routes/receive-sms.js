@@ -12,12 +12,15 @@ var mongoPassword = "maIts5yUb5Thac";
 router.get('/', function(req, res) {
   console.log('/receive-sms ENTER');
 
-  var msg = querystring.stringify({
+  var msg = JSON.stringify({
     'to': req.query.to,
     'from': req.query.from,
     'content': req.query.content,
     'msg_id': req.query.msg_id
   });
+
+  console.log('POST /logic with Body:');
+  console.log(msg);
 
   console.log('  constructed msg');
   // Connect to the db and submit change
