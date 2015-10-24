@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
   var msg = querystring.stringify({
     'to': req.query.to,
     'from': req.query.from,
-    'message': req.query.content,
+    'content': req.query.content,
     'msg_id': req.query.msg_id
   });
 
