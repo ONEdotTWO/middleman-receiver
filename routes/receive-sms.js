@@ -18,7 +18,9 @@ router.get('/', function(req, res) {
   };
 
   // Connect to the db and submit change
-  MongoClient.connect("mongodb://" + mongoUser + ":" + mongoPassword@ds031531.mongolab.com:31531/middleman", function (err, db) {
+  MongoClient.connect("mongodb://" + mongoUser + ":" + mongoPassword
+      + "@ds031531.mongolab.com:31531/middleman",
+      function (err, db) {
     if (!err) {
       var collection = db.collection('messages');
       var document = {'to': req.query.to, 'from': req.query.from, 'message': req.query.content};
@@ -38,7 +40,7 @@ router.get('/', function(req, res) {
     path: '/logic',
     method: 'POST',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/json',
       'Content-Length': postData.length
     }
   };
