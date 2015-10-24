@@ -1,22 +1,25 @@
 var express = require('express');
 var router = express.Router();
-var http = require('http');
 var MongoClient = require('mongodb').MongoClient;
+var querystring = require('querystring');
+var http = require('http');
 
-var logic_url_base = "http://ec2-52-17-7-182.eu-west-1.compute.amazonaws.com";
+var logic_host = "ec2-52-17-7-182.eu-west-1.compute.amazonaws.com";
 var mongoUser = "onedottwo";
 var mongoPassword = "maIts5yUb5Thac";
 
 /* Receive SMS */
 router.get('/', function(req, res) {
-  
-  var msg = {
-    to: req.query.to,
-    from: req.query.from,
-    message: req.query.content,
-    msg_id: req.query.msg_id
-  };
+  console.log('/receive-sms ENTER');
 
+  var msg = querystring.stringify({
+    'to': req.query.to,
+    'from': req.query.from,
+    'message': req.query.content,
+    'msg_id': req.query.msg_id
+  });
+
+  console.log('  constructed msg');
   // Connect to the db and submit change
   MongoClient.connect("mongodb://" + mongoUser + ":" + mongoPassword
       + "@ds031531.mongolab.com:31531/middleman",
@@ -35,7 +38,7 @@ router.get('/', function(req, res) {
   });
   
   var options = {
-    hostname: logic_url_base,
+    hostname: logic_host,
     port: 5000,
     path: '/logic',
     method: 'POST',
