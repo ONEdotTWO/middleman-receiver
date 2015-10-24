@@ -3,7 +3,7 @@ var router = express.Router();
 var http = require('http');
 var MongoClient = require('mongodb').MongoClient;
 
-var logic_url_base = "http://ec2-52-17-7-182.eu-west-1.compute.amazonaws.com"
+var logic_url_base = "http://ec2-52-17-7-182.eu-west-1.compute.amazonaws.com";
 var mongoUser = "onedottwo";
 var mongoPassword = "maIts5yUb5Thac";
 
@@ -40,8 +40,9 @@ router.get('/', function(req, res) {
     path: '/logic',
     method: 'POST',
     headers: {
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Content-Length': postData.length
+      'Content-Length': msg.length
     }
   };
 
