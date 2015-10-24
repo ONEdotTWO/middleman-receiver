@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res) {
-  res.json({ message: "hello world!"});
+/* Receive SMS */
+router.post('', function(req, res) {
+  res.json({ status: "received", sms : {
+    to : req.query.to,
+    from : req.query.from,
+    message : req.query.content,
+    keyword : req.query.keyword,
+    msg_id : req.query.msg_id
+  }});
 });
 
 module.exports = router;
