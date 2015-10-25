@@ -1,12 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var MongoClient = require('mongodb').MongoClient;
 var querystring = require('querystring');
 var http = require('http');
 
 var logic_host = "ec2-52-17-7-182.eu-west-1.compute.amazonaws.com";
-var mongoUser = "onedottwo";
-var mongoPassword = "maIts5yUb5Thac";
 
 /* Receive SMS */
 router.get('/', function(req, res) {
@@ -23,22 +20,6 @@ router.get('/', function(req, res) {
   console.log(msg);
 
   console.log('  constructed msg');
-  // Connect to the db and submit change
-  MongoClient.connect("mongodb://" + mongoUser + ":" + mongoPassword
-      + "@ds031531.mongolab.com:31531/middleman",
-      function (err, db) {
-    if (!err) {
-      var collection = db.collection('messages');
-      var document = {'to': req.query.to, 'from': req.query.from, 'message': req.query.content};
-      collection.insert(document, {w: 1}, function (err, result) {
-        if (err) {
-          console.log("Couldn't send to database");
-        }
-      });
-    } else {
-      console.log("ERROR: Couldn't connect to remote mongo");
-    }
-  });
   
   var options = {
     hostname: logic_host,
